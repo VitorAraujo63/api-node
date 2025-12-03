@@ -66,7 +66,7 @@ server.post('/courses', (request, reply) => {
 
 server.listen({ 
     port: 3333,
-    host: '0.0.0.0' })
+    host: '0.0.0.0'})
     .then(() => {
     console.log('HTTP server running!')
 })

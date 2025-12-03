@@ -8,3 +8,12 @@ services:
     ports:
       - "3333:3333"
     command: tail -f /dev/null
+  
+  db:
+    image: postgres:17
+    environment:
+      PROSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: desafio
+    ports:
+      - "5432:5432"
