@@ -15,6 +15,41 @@
       "when": 1764804613761,
       "tag": "0001_mean_tinkerer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764855657725,
+      "tag": "0002_wild_supernaut",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1764855768802,
+      "tag": "0003_brown_skreet",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1764857519639,
+      "tag": "0004_optimal_mikhail_rasputin",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1764859673811,
+      "tag": "0005_lucky_kat_farrell",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1764861244466,
+      "tag": "0006_mixed_layla_miller",
+      "breakpoints": true
     }
   ]
 }
