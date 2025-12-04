@@ -1,8 +1,13 @@
 // const fastify = require('fastify')
 // const crypto = require('crypto')
 
+import { fastifySwagger } from '@fastify/swagger'
 import fastify from 'fastify'
-import crypto from 'node:crypto'
+import { validatorCompiler, serializerCompiler, type ZodTypeProvider, jsonSchemaTransform } from 'fastify-type-provider-zod'
+import { createCoursesRoute } from './src/routes/create-courses.ts'
+import { getCoursesByIdRoute } from './src/routes/get-courses-by-id.ts'
+import { getCoursesRoute } from './src/routes/get-courses.ts'
+import scalarAPIReference from '@scalar/fastify-api-reference'
 
 
 const server = fastify({
@@ -15,54 +20,34 @@ const server = fastify({
             },
         },
     },
-})
+}).withTypeProvider<ZodTypeProvider>()
 
-const courses = [
-    { id: 1, title: "Curso de Node.js"},
-    { id: 2, title: "Curso de JavaScript"},
-    { id: 3, title: "Curso de Nest.js"},
-]
+if(process.env.NODE_ENV == 'development') {
+    server.register(fastifySwagger, {
+    openapi: {
+        info: {
+            title: 'Desafio Node.js',
+            version: '1.0.0',
+        }
+    },
+        transform: jsonSchemaTransform,
+    })
 
-server.get('/courses', () => {
-    return { courses }
-})
-
-server.get('/courses/:id', (request, reply) => {
-    type Params = {
-        id: number
-    }
-
-    const params = request.params as Params
-
-    const courseId = params.id
-
-    const course = courses.find(course => course.id == courseId)
-
-    if (course) {
-        return { course }
-    }
+    server.register(scalarAPIReference, {
+    routePrefix: '/docs',
     
-    return reply.status(404).send()
-})
+    })
+}
 
-server.post('/courses', (request, reply) => {
-    type Body = {
-        title: string
-    }
+server.setValidatorCompiler(validatorCompiler)
+server.setSerializerCompiler(serializerCompiler)
 
-    const courseId = crypto.randomUUID() 
 
-    const body = request.body as Body
-    const courseTitle = body.title
+server.register(createCoursesRoute)
+server.register(getCoursesByIdRoute)
+server.register(getCoursesRoute)
 
-    if(!courseTitle) {
-        return reply.status(400).send({ message: 'Titulo obrigatorio.' })
-    }
 
-    courses.push({ id: courseId, title: courseTitle })
-
-    return reply.status(201).send({ id: courseId })
-})
 
 server.listen({ 
     port: 3333,
