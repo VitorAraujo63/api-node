@@ -1,8 +1,9 @@
 POST http://localhost:3333/courses
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NGY0YjQwOS02OGEyLTRhYjYtYmRjYS02Yjk3NjQ1Mjc1YzUiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NDk1NjU4MH0.ENUm2-tbuQ3jVP65WTneDhdwJ2kS5TlYMGrky8Jt5nw
 
 {
-    "title": "Curso de Java"
+    "title": "Curso de Java2"
 }
 
 ###
@@ -11,4 +12,16 @@ GET http://localhost:3333/courses
 
 ###
 
-GET http://localhost:3333/courses/47ebaeb0-5833-4790-a51f-a9df600508e6
+GET http://localhost:3333/courses/f77a8ec0-72d1-43ea-a56c-07034bbad119
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NGY0YjQwOS02OGEyLTRhYjYtYmRjYS02Yjk3NjQ1Mjc1YzUiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NDk1NjU4MH0.ENUm2-tbuQ3jVP65WTneDhdwJ2kS5TlYMGrky8Jt5nw
+
+###
+
+POST http://localhost:3333/sessions
+Content-Type: application/json
+
+{
+    "email": "Caio.Saraiva@bol.com.br",
+    "password": "123456"
+
+}

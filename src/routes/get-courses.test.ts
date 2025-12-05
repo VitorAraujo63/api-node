@@ -3,9 +3,12 @@ import { randomUUID } from 'node:crypto'
 import request from 'supertest'
 import { server } from '../app.ts'
 import { makeCourse } from '../tests/factories/make-course.ts'
+import { makeAuthenticationUser } from '../tests/factories/make-user.ts'
 
 test('Get course', async () => {
     await server.ready()
+
+    const { token } = await makeAuthenticationUser('student')
 
     const titleId = randomUUID()
 
@@ -13,6 +16,7 @@ test('Get course', async () => {
 
     const response = await request(server.server)
         .get(`/courses?search=${titleId}`)
+        .set('Authorization', token)
 
     expect(response.status).toEqual(200)
     expect(response.body).toEqual({

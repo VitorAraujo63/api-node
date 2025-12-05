@@ -3,9 +3,16 @@ import { db } from "../database/client.ts"
 import { courses } from "../database/schema.ts"
 import z from "zod"
 import { eq } from "drizzle-orm"
+import { checkRequestJWT } from "./hooks/check-request-jwt.ts"
+import { getAuthenticatedUserFromRequest } from "../utils/get-authenticated-user-from-request.ts"
+import { checkUserRole } from "./hooks/check-user-role.ts"
 
 export const  getCoursesByIdRoute: FastifyPluginAsyncZod = async (server) => {
     server.get('/courses/:id', {
+        preHandler: [
+            checkRequestJWT,
+            checkUserRole('manager'),
+        ],
     schema: {
         tags: ['courses'],
         summary: 'Get courses by ID',
@@ -24,6 +31,8 @@ export const  getCoursesByIdRoute: FastifyPluginAsyncZod = async (server) => {
         },
     },
     }, async (request, reply) => {
+        const user = getAuthenticatedUserFromRequest(request)
+        
         const courseId = request.params.id
 
         const result = await db
