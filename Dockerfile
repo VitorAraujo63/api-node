@@ -1,11 +1,13 @@
-FROM node:24.11.1-alpine as builder
+FROM node:24.11.1-alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY . ./
+COPY package*.json ./
 
-RUN npm ci --only=production
+RUN npm install
+
+COPY . .
 
 EXPOSE 3333
 
-CMD ['node', 'src/server.ts']
+CMD ["npx", "tsx", "src/server.ts"]
