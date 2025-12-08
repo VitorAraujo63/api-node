@@ -5,11 +5,12 @@
   "main": "./src/server.ts",
   "scripts": {
     "dev": "node --watch --env-file .env src/server.ts",
-    "db:seed": "node --env-file .env src/database/seed.ts",
+    "db:seed": "node src/database/seed.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "pretest": "dotenv -e .env.test drizzle-kit migrate",
-    "test": "dotenv -e .env.test vitest run" 
+    "test": "dotenv -e .env.test vitest run",
+    "start": "node src/server.ts"
   },
   "keywords": [],
   "author": "",
